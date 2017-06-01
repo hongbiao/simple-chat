@@ -12,7 +12,7 @@ $(function() {
   var $usernameInput = $('.usernameInput'); // Input for username
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
-
+  var $participants = $('.participants')
   var $loginPage = $('.login.page'); // The login page
   var $chatPage = $('.chat.page'); // The chatroom page
 
@@ -27,16 +27,13 @@ $(function() {
 
   function addParticipantsMessage (data) {
     var message = '';
-    if (data.numUsers === 1) {
-      message += "there's 1 participant: ";
-    } else {
-      message += "there are " + data.numUsers + " participants: ";
-    }
     console.log(data);
     if (data.users) {
-      message += data.users.join(',');
+      for(var i=0;i<data.users.length;i++){
+        message+= '<span class="user">' + data.users[i] + '</span>';
+      }
     }
-    log(message);
+    $participants.html(message);
   }
 
   // Sets the client's username

@@ -112,8 +112,8 @@ ul {
 /* Messages */
 
 .chatArea {
-  height: 100%;
-  padding-bottom: 60px;
+  height: 550px;
+  overflow: scroll;
 }
 
 .messages {
@@ -146,4 +146,19 @@ ul {
   position: absolute;
   right: 0;
   width: 100%;
+}
+.participantArea {
+  height: 120px;
+  width: 100%;
+  border: 5px solid #000 ;
+  font-size: 20px;
+}
+.participantArea h4 {
+  margin: 5px 5px 5px 5px;
+  text-align: center;
+}
+.user {
+  border: 1px solid #000;
+  margin-right: 10px;
+  padding: 3px;
 }
