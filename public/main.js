@@ -28,9 +28,13 @@ $(function() {
   function addParticipantsMessage (data) {
     var message = '';
     if (data.numUsers === 1) {
-      message += "there's 1 participant";
+      message += "there's 1 participant: ";
     } else {
-      message += "there are " + data.numUsers + " participants";
+      message += "there are " + data.numUsers + " participants: ";
+    }
+    console.log(data);
+    if (data.users) {
+      message += data.users.join(',');
     }
     log(message);
   }
@@ -243,6 +247,7 @@ $(function() {
 
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', function (data) {
+    console.log(data);
     log(data.username + ' joined');
     addParticipantsMessage(data);
   });

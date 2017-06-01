@@ -37,12 +37,15 @@ io.on('connection', function (socket) {
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
-      numUsers: numUsers
+      numUsers: numUsers,
+      users: Object.keys(io.sockets.connected).map(socketId => io.sockets.connected[socketId].username).filter(username => username)
     });
     // echo globally (all clients) that a person has connected
+    console.log(io.sockets.connected);
     socket.broadcast.emit('user joined', {
       username: socket.username,
-      numUsers: numUsers
+      numUsers: numUsers,
+      users: Object.keys(io.sockets.connected).map(socketId => io.sockets.connected[socketId].username).filter(username => username)
     });
   });
 
@@ -68,7 +71,8 @@ io.on('connection', function (socket) {
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
-        numUsers: numUsers
+        numUsers: numUsers,
+        users: Object.keys(io.sockets.connected).map(socketId => io.sockets.connected[socketId].username).filter(username => username)
       });
     }
   });
