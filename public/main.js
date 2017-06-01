@@ -56,19 +56,18 @@ $(function() {
   }
 
   // Sends a chat message
-  function sendMessage () {
-    var message = $inputMessage.val();
+  function sendMessage (message) {
     // Prevent markup from being injected into the message
-    message = cleanInput(message);
+    let cleanMessage = cleanInput(message);
     // if there is a non-empty message and a socket connection
-    if (message && connected) {
+    if (cleanMessage && connected) {
       $inputMessage.val('');
       addChatMessage({
         username: username,
-        message: message
+        message: cleanMessage
       });
       // tell server to execute 'new message' and send along one parameter
-      socket.emit('new message', message);
+      socket.emit('new message', cleanMessage);
     }
   }
 
@@ -202,7 +201,8 @@ $(function() {
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
       if (username) {
-        sendMessage();
+        let message = $inputMessage.val();
+        sendMessage(message);
         socket.emit('stop typing');
         typing = false;
       } else {
