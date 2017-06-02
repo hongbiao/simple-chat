@@ -30,7 +30,7 @@ $(function() {
     console.log(data);
     if (data.users) {
       for(var i=0;i<data.users.length;i++){
-        message+= '<span class="user">' + data.users[i] + '</span>';
+        message+= '<span class="user username" style="color:'+getUsernameColor(data.users[i])+'">' + data.users[i] + '</span>';
       }
     }
     $participants.html(message);
