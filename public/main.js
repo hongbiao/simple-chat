@@ -31,8 +31,8 @@ $(function() {
     if (data.users) {
       for(var i=0;i<data.users.length;i++){
         message += `
-          <img src="default-avatar.png" style="width:20px;"/>
           <span class="user" style="color: ${getUsernameColor(data.users[i])}">
+            <img src="default-avatar.png" style="width:20px;"/>
             ${ data.users[i]}
           </span>
         `;
