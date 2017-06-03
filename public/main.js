@@ -33,9 +33,9 @@ $(function() {
     if (data.users) {
       for(var i=0;i<data.users.length;i++){
         message += `
-          <span class="user" style="color: ${getUsernameColor(data.users[i])}">
-            <img src="${avatar}" style="width:20px;"/>
-            ${ data.users[i]}
+          <span class="user" style="color: ${getUsernameColor(data.users[i].username)}">
+            <img src="${data.users[i].avatar}" style="width:20px;"/>
+            ${ data.users[i].username }
           </span>
         `;
       }
@@ -54,14 +54,12 @@ $(function() {
       $loginPage.off('click');
       $currentInput = $inputMessage.focus();
 
-      // Tell the server your username
-      socket.emit('add user', username);
     }
   }
   // Sets the client's avater
   function setAvatar () {
     avatar = cleanInput($avatarInput.val().trim());
-    console.log('Set avatar')
+    socket.emit('set avatar', avatar);
   }
   // Sends a chat message
   function sendMessage (message) {
@@ -72,6 +70,7 @@ $(function() {
       $inputMessage.val('');
       addChatMessage({
         username: username,
+        avatar: avatar,
         message: cleanMessage
       });
       // tell server to execute 'new message' and send along one parameter
@@ -95,8 +94,10 @@ $(function() {
       $typingMessages.remove();
     }
 
-    var $usernameDiv = $('<span class="username"/>')
-      .text(data.username)
+    var $usernameDiv = $(`<span class="username">
+    <img src="${data.avatar}" style="width:20px;"/>
+    ${data.username}
+    </span>`)
       .css('color', getUsernameColor(data.username));
     var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
@@ -226,7 +227,9 @@ $(function() {
     if($avatarInput.val().trim().length > 0) {
       setAvatar();
     }
-  });
+       // Tell the server your username
+      socket.emit('add user', username, avatar);
+ });
 
   // Focus input when clicking on the message input's border
   $inputMessage.click(function () {

@@ -24,31 +24,44 @@ io.on('connection', function (socket) {
     // we tell the client to execute 'new message'
     socket.broadcast.emit('new message', {
       username: socket.username,
+      avatar: socket.avatar,
       message: data
     });
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user', function (username) {
+  socket.on('add user', function (username, avatar) {
     if (addedUser) return;
 
     // we store the username in the socket session for this client
     socket.username = username;
+    socket.avatar = avatar;
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers,
-      users: Object.keys(io.sockets.connected).map(socketId => io.sockets.connected[socketId].username).filter(username => username)
+      users: Object.keys(io.sockets.connected).map(socketId => ({
+        'username': io.sockets.connected[socketId].username,
+        'avatar': io.sockets.connected[socketId].avatar
+      })).filter(socket => socket.username)
     });
     // echo globally (all clients) that a person has connected
     console.log(io.sockets.connected);
     socket.broadcast.emit('user joined', {
       username: socket.username,
+      avatar: socket.avatar,
       numUsers: numUsers,
-      users: Object.keys(io.sockets.connected).map(socketId => io.sockets.connected[socketId].username).filter(username => username)
-    });
+      users: Object.keys(io.sockets.connected).map(socketId => ({
+        'username': io.sockets.connected[socketId].username,
+        'avatar': io.sockets.connected[socketId].avatar
+      })).filter(socket => socket.username)
+     });
   });
 
+socket.on('set avatar', function (avatar) {
+    // we store the avatar in the socket session for this client
+    socket.avatar = avatar;
+  });
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
     socket.broadcast.emit('typing', {
@@ -71,8 +84,12 @@ io.on('connection', function (socket) {
       // echo globally that this client has left
       socket.broadcast.emit('user left', {
         username: socket.username,
+        avatar: socket.avatar,
         numUsers: numUsers,
-        users: Object.keys(io.sockets.connected).map(socketId => io.sockets.connected[socketId].username).filter(username => username)
+        users: Object.keys(io.sockets.connected).map(socketId => ({
+          'username': io.sockets.connected[socketId].username,
+          'avatar': io.sockets.connected[socketId].avatar
+        })).filter(socket => socket.username)
       });
     }
   });
