@@ -62,7 +62,7 @@ ul {
   width: 100%;
 }
 
-.login.page .form .usernameInput {
+.login.page .form .loginInput {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #fff;
@@ -76,12 +76,12 @@ ul {
   font-size: 200%;
 }
 
-.login.page .usernameInput {
+.login.page .loginInput {
   font-size: 200%;
   letter-spacing: 3px;
 }
 
-.login.page .title, .login.page .usernameInput {
+.login.page .title, .login.page .loginInput {
   color: #fff;
   font-weight: 100;
 }
@@ -162,4 +162,10 @@ ul {
   margin-right: 10px;
   padding: 3px;
   font-weight: bold;
+}
+.join-button{
+  font-size: 24px;
+}
+.join-button-wrapper{
+  margin: 15px 0 0 0;
 }

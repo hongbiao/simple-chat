@@ -9,7 +9,8 @@ $(function() {
 
   // Initialize variables
   var $window = $(window);
-  var $usernameInput = $('.usernameInput'); // Input for username
+  var $usernameInput = $('#usernameInput'); // Input for username
+  var $avatarInput = $('#avatarInput'); // Input for avatar
   var $messages = $('.messages'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
   var $participants = $('.participants')
@@ -18,6 +19,7 @@ $(function() {
 
   // Prompt for setting a username
   var username;
+  var avatar = 'default-avatar.png';
   var connected = false;
   var typing = false;
   var lastTypingTime;
@@ -32,7 +34,7 @@ $(function() {
       for(var i=0;i<data.users.length;i++){
         message += `
           <span class="user" style="color: ${getUsernameColor(data.users[i])}">
-            <img src="default-avatar.png" style="width:20px;"/>
+            <img src="${avatar}" style="width:20px;"/>
             ${ data.users[i]}
           </span>
         `;
@@ -56,7 +58,11 @@ $(function() {
       socket.emit('add user', username);
     }
   }
-
+  // Sets the client's avater
+  function setAvatar () {
+    avatar = cleanInput($avatarInput.val().trim());
+    console.log('Set avatar')
+  }
   // Sends a chat message
   function sendMessage (message) {
     // Prevent markup from being injected into the message
@@ -196,10 +202,6 @@ $(function() {
   // Keyboard events
 
   $window.keydown(function (event) {
-    // Auto-focus the current input when a key is typed
-    if (!(event.ctrlKey || event.metaKey || event.altKey)) {
-      $currentInput.focus();
-    }
     // When the client hits ENTER on their keyboard
     if (event.which === 13) {
       if (username) {
@@ -207,8 +209,6 @@ $(function() {
         sendMessage(message);
         socket.emit('stop typing');
         typing = false;
-      } else {
-        setUsername();
       }
     }
   });
@@ -219,9 +219,13 @@ $(function() {
 
   // Click events
 
-  // Focus input when clicking anywhere on login page
-  $loginPage.click(function () {
-    $currentInput.focus();
+  var $loginForm = $('form.form');
+  $loginForm.on('submit', function(event) {
+    event.preventDefault();
+    setUsername();
+    if($avatarInput.val().trim().length > 0) {
+      setAvatar();
+    }
   });
 
   // Focus input when clicking on the message input's border
