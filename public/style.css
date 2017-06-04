@@ -168,3 +168,10 @@ ul {
 .join-button-wrapper{
   margin: 15px 0 0 0;
 }
+.menu-button{
+  width: 150px;
+  margin: 5px 10px 5px 10px;
+}
+.menu {
+  background-color: #000;
+}
