@@ -16,6 +16,13 @@ app.use(express.static(__dirname + '/public'));
 
 var numUsers = 0;
 
+function getUsers(connectedSockets){
+  return Object.keys(connectedSockets).map(socketId => ({
+        'username': connectedSockets[socketId].username,
+        'avatar': connectedSockets[socketId].avatar
+      })).filter(socket => socket.username)
+}
+
 io.on('connection', function (socket) {
   var addedUser = false;
 
@@ -40,10 +47,7 @@ io.on('connection', function (socket) {
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers,
-      users: Object.keys(io.sockets.connected).map(socketId => ({
-        'username': io.sockets.connected[socketId].username,
-        'avatar': io.sockets.connected[socketId].avatar
-      })).filter(socket => socket.username)
+      users: getUsers(io.sockets.connected)
     });
     // echo globally (all clients) that a person has connected
     console.log(io.sockets.connected);
@@ -51,10 +55,7 @@ io.on('connection', function (socket) {
       username: socket.username,
       avatar: socket.avatar,
       numUsers: numUsers,
-      users: Object.keys(io.sockets.connected).map(socketId => ({
-        'username': io.sockets.connected[socketId].username,
-        'avatar': io.sockets.connected[socketId].avatar
-      })).filter(socket => socket.username)
+      users: getUsers(io.sockets.connected)
      });
   });
 
@@ -86,10 +87,7 @@ socket.on('set avatar', function (avatar) {
         username: socket.username,
         avatar: socket.avatar,
         numUsers: numUsers,
-        users: Object.keys(io.sockets.connected).map(socketId => ({
-          'username': io.sockets.connected[socketId].username,
-          'avatar': io.sockets.connected[socketId].avatar
-        })).filter(socket => socket.username)
+        users: getUsers(io.sockets.connected)
       });
     }
   });

@@ -98,7 +98,12 @@ $(function() {
     ${data.username}
     </div>`)
       .css('color', getUsernameColor(data.username));
-    var $messageBodyDiv = $('<div class="messageBody" style="border: 1px solid #000; padding: 5px; border-radius: 5px; width: 201px; margin-top: 7px;">')
+    var $messageBodyDiv = $(`<div class="messageBody" style="
+    border: 1px solid #000; 
+    padding: 5px; 
+    border-radius: 5px; 
+    width: 501px; 
+    margin-top: 7px;">`)
       .text(data.message);
 
     var $avatarDiv = $(`<div class="avatar" style=" margin: 0 10px 0 0;">
