@@ -241,6 +241,16 @@ $(function() {
       socket.emit('add user', username, avatar);
  });
 
+ var $changeAvatarForm = $('form#change-avatar-form');
+  $changeAvatarForm.on('submit', function(event) {
+    event.preventDefault();
+    if($('#avatar-input').val().trim().length > 0) {
+      setAvatar();
+    }
+       // Tell the server your new avatar
+      socket.emit("change avatar", change-avatar);
+ });
+
   // Focus input when clicking on the message input's border
   $inputMessage.click(function () {
     $inputMessage.focus();
@@ -304,3 +314,10 @@ $(function() {
   });
 
 });
+function showAvatarForm(elementSelector){
+  $('#' + elementSelector).show()
+}
+
+function closeAvatarForm(elementSelector){
+  $('#' + elementSelector).hide()
+}

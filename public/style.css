@@ -175,3 +175,20 @@ ul {
 .menu {
   background-color: #000;
 }
+#change-avatar-form {
+  display: none;
+  position: absolute;
+  top: 32px;
+  left: 5px;
+  right: 5px;
+  border: 2px solid #333;
+}
+#avatar-input {
+  width: 100%;
+  background-color: #faffbd;
+}
+#close-change-avatar-form{
+  position: absolute;
+  right: 0px;
+  top: 2px;
+}
