@@ -245,10 +245,11 @@ $(function() {
   $changeAvatarForm.on('submit', function(event) {
     event.preventDefault();
     if($('#avatar-input').val().trim().length > 0) {
-      setAvatar();
+      avatar = $('#avatar-input').val().trim();
+      socket.emit('set avatar', avatar);
     }
        // Tell the server your new avatar
-      socket.emit("change avatar", change-avatar);
+      socket.emit("change avatar", avatar);
  });
 
   // Focus input when clicking on the message input's border
@@ -288,6 +289,11 @@ $(function() {
     removeChatTyping(data);
   });
 
+  socket.on('change avatar', function(data){
+    log(data.username + ' has changed thier avatar to ' + data.avatar);
+    addParticipantsMessage(data);
+    console.log(data);
+  });
   // Whenever the server emits 'typing', show the typing message
   socket.on('typing', function (data) {
     addChatTyping(data);

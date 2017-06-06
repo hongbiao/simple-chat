@@ -91,4 +91,9 @@ socket.on('set avatar', function (avatar) {
       });
     }
   });
+  socket.on('change avatar', function (avatarUrl) {
+    console.log(avatarUrl + "**dfghjvnbgfdgxhjkdASGDJHAVDUTFrtfjgh");
+    socket.avatar = avatarUrl;
+    socket.broadcast.emit('change avatar', {username: socket.username, avatar: socket.avatar, users: getUsers(io.sockets.connected)});
+  })
 });
