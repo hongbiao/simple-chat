@@ -99,10 +99,10 @@ $(function() {
     </div>`)
       .css('color', getUsernameColor(data.username));
     var $messageBodyDiv = $(`<div class="messageBody" style="
-    border: 1px solid #000; 
-    padding: 5px; 
-    border-radius: 5px; 
-    width: 501px; 
+    border: 1px solid #000;
+    padding: 5px;
+    border-radius: 5px;
+    width: 501px;
     margin-top: 7px;">`)
       .text(data.message);
 
@@ -246,10 +246,8 @@ $(function() {
     event.preventDefault();
     if($('#avatar-input').val().trim().length > 0) {
       avatar = $('#avatar-input').val().trim();
-      socket.emit('set avatar', avatar);
-    }
-       // Tell the server your new avatar
       socket.emit("change avatar", avatar);
+    }
  });
 
   // Focus input when clicking on the message input's border
