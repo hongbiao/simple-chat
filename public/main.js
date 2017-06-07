@@ -121,13 +121,6 @@ $(function() {
   }
 
 
-  // Adds the visual chat typing message
-  function addChatTyping (data) {
-    data.typing = true;
-    data.message = 'is typing';
-    addChatMessage(data);
-  }
-
   // Removes the visual chat typing message
   function removeChatTyping (data) {
     getTypingMessages(data).fadeOut(function () {
@@ -294,7 +287,7 @@ $(function() {
   });
   // Whenever the server emits 'typing', show the typing message
   socket.on('typing', function (data) {
-    addChatTyping(data);
+    log(data.username + ' is typing');
   });
 
   // Whenever the server emits 'stop typing', kill the typing message
