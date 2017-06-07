@@ -77,7 +77,7 @@ $(function() {
 
   // Log a message
   function log (message, options) {
-    var $el = $('<li>').addClass('log').text(message);
+    var $el = $('<li>').addClass('log').html(message);
     addMessageElement($el, options);
   }
 
@@ -227,7 +227,7 @@ $(function() {
   });
 
   socket.on('change avatar', function(data){
-    log(data.username + ' has changed thier avatar to ' + data.avatar);
+    log(`${data.username} has changed thier avatar to <img width="20" src="${data.avatar}"/>`);
     addParticipantsMessage(data);
     console.log(data);
   });

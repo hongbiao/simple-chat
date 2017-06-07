@@ -173,15 +173,20 @@ ul {
   margin: 5px 10px 5px 10px;
 }
 .menu {
-  background-color: #000;
+  background-color: #0f8bc0;
 }
 #change-avatar-form {
+  width: 700px;
+  height: 100px;
+  background-color: #0f8bc0;
   display: none;
   position: absolute;
   top: 32px;
   left: 5px;
   right: 5px;
-  border: 2px solid #333;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 10px;
 }
 #avatar-input {
   width: 100%;
@@ -191,4 +196,7 @@ ul {
   position: absolute;
   right: 0px;
   top: 2px;
+}
+#change-avatar-button{
+  text-align: center;
 }
