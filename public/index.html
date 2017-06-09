@@ -9,16 +9,17 @@
   <ul class="pages">
     <li class="chat page">
       <div class="menu">
-      <button class="menu-button" onclick="showAvatarForm('change-avatar-form')">Change Avatar</button>
-      <button class="menu-button">Change Username</button>
+      <button class="menu-button" onclick="showProfileForm('change-profile-form')">Change Profile</button>
       <button class="menu-button">TBD</button>
       <button class="menu-button">TBD</button>
       </div>
-      <form id="change-avatar-form">
+      <form id="change-profile-form">
         <label style="color:white;">Enter your new avatar here</label>
         <input id="avatar-input">
-        <button id="close-change-avatar-form" onclick="closeAvatarForm('change-avatar-form')">x</button>
-        <button id="change-avatar-button" type="submit" onclick="closeAvatarForm('change-avatar-form')">Submit new avatar</button>
+        <button id="close-change-profile-form" onclick="closeProfileForm('change-profile-form')">x</button>
+        <label style="color:white;">Enter your new username here</label>
+        <input id="username-input">
+        <button id="change-profile-button" type="submit" onclick="closeProfileForm('change-profile-form')">Submit new profile</button>
       </form>
       <div class="participantArea">
         <h4>Participants</h4>

@@ -96,4 +96,9 @@ socket.on('set avatar', function (avatar) {
     socket.avatar = avatarUrl;
     socket.broadcast.emit('change avatar', {username: socket.username, avatar: socket.avatar, users: getUsers(io.sockets.connected)});
   })
+  socket.on('change username', function (username) {
+    console.log(username + "**dfghjvnbgfdgxhjkdASGDJHAVDUTFrtfjgh");
+    socket.username = username;
+    socket.broadcast.emit('change username', {username: socket.username, username: socket.username, users: getUsers(io.sockets.connected)});
+  })
 });

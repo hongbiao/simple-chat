@@ -17,8 +17,6 @@ $(function() {
   var $chatPage = $('.chat.page'); // The chatroom page
 
   // Prompt for setting a username
-  var username;
-  var avatar = 'default-avatar.png';
   var connected = false;
   var $currentInput = $usernameInput.focus();
 
@@ -181,12 +179,16 @@ $(function() {
       socket.emit('add user', username, avatar);
  });
 
- var $changeAvatarForm = $('form#change-avatar-form');
-  $changeAvatarForm.on('submit', function(event) {
+ var $changeProfileForm = $('form#change-profile-form');
+  $changeProfileForm.on('submit', function(event) {
     event.preventDefault();
     if($('#avatar-input').val().trim().length > 0) {
       avatar = $('#avatar-input').val().trim();
       socket.emit("change avatar", avatar);
+    }
+    if($('#username-input').val().trim().length > 0) {
+      username = $('#username-input').val().trim();
+      socket.emit("change username", username);
     }
  });
 
@@ -231,6 +233,11 @@ $(function() {
     addParticipantsMessage(data);
     console.log(data);
   });
+  socket.on('change username', function(data){
+    log(`${data.username} has changed thier username to ${data.username}`);
+    addParticipantsMessage(data);
+    console.log(data);
+  });
   socket.on('disconnect', function () {
     log('you have been disconnected');
   });
@@ -247,10 +254,15 @@ $(function() {
   });
 
 });
-function showAvatarForm(elementSelector){
-  $('#' + elementSelector).show()
+var username;
+var avatar = 'default-avatar.png';
+
+function showProfileForm(elementSelector){
+  $('#' + elementSelector).show();
+  $("#avatar-input").val(avatar);
+  $("#username-input").val(username);
 }
 
-function closeAvatarForm(elementSelector){
+function closeProfileForm(elementSelector){
   $('#' + elementSelector).hide()
 }

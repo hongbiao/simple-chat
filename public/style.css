@@ -175,9 +175,9 @@ ul {
 .menu {
   background-color: #0f8bc0;
 }
-#change-avatar-form {
+#change-profile-form {
   width: 700px;
-  height: 100px;
+  height: 130px;
   background-color: #0f8bc0;
   display: none;
   position: absolute;
@@ -192,11 +192,15 @@ ul {
   width: 100%;
   background-color: #faffbd;
 }
-#close-change-avatar-form{
+#username-input { 
+  width: 100%;
+  background-color: #faffbd;
+}
+#close-change-profile-form{
   position: absolute;
   right: 0px;
   top: 2px;
 }
-#change-avatar-button{
+#change-profile-button{
   text-align: center;
 }
